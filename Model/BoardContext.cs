@@ -10,10 +10,7 @@ namespace BoardGame.Model
     {
         public BoardContext(DbContextOptions<BoardContext> options)
         {
-            if (!Database.IsInMemory())
-            {
-                this.Database.Migrate();
-            }
+      
         }
         public DbSet<Game> Games { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

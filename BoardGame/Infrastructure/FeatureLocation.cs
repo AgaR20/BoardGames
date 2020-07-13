@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-//[assembly: JetBrains.Annotations.AspMvcViewLocationFormat(@"~\Features\{1}\{0}.cshtml")]
-//[assembly: JetBrains.Annotations.AspMvcViewLocationFormat(@"~\Features\Shared\{0}.cshtml")]
 
 namespace BoardGame.Infrastructure
 {
@@ -20,13 +18,13 @@ namespace BoardGame.Infrastructure
                 "/Features/{1}/{0}.cshtml",
                 "/Features/Shared/{0}.cshtml",
             };
-            
-                        return expandViewLocations;
+
+            return expandViewLocations;
         }
 
         public void PopulateValues(ViewLocationExpanderContext context)
         {
-           
+
         }
     }
 }
