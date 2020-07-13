@@ -20,13 +20,13 @@ namespace BoardGame.Controllers
             _mediator = mediator;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             //var list = _context.Games.ToList();
             //_context.Games.Add(new Game());
             //_context.SaveChanges();
-            _mediator.Send(new Query());
-            return View("Index/Index");
+            List<GamesIndexViewModel> result = await _mediator.Send(new Query());
+            return View("Index/Index", result);
         }
 
     }

@@ -1,8 +1,16 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<BoardGame.Features.Games.Index.GamesIndexViewModel>
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Awsome Games</h1>
+    <button>Add new game</button>
+    <table>
+        <tr>
+            <th>Name</th>
+        </tr>
+        @foreach (var game in Model)
+        {
+            @Html.Partial("~/Features/Games/Index/RowPartial.cshtml", game)
+        }
+    </table>
+    
 </div>
