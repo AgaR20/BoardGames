@@ -1,0 +1,10 @@
+.vs/
+BoardGame/wwwroot/lib/
+BoardGame/obj/
+BoardGame/bin/
+Model/obj/
+UnitTest/bin/
+UnitTest/obj/
+XUnitTest/bin/
+XUnitTest/obj/
+Model/bin/
