@@ -12,7 +12,6 @@ namespace BoardGame.Features.Games.Details
     public class GameDetailQuery : IRequest<DetailsViewModel>
     {
         public int Id { get; set; }
-        public bool EditMode { get; set; }
 
         public class Handler : IRequestHandler<GameDetailQuery, DetailsViewModel>
         {
@@ -24,10 +23,21 @@ namespace BoardGame.Features.Games.Details
 
             public async Task<DetailsViewModel> Handle(GameDetailQuery request, CancellationToken cancellationToken)
             {
-                return await _context.Games
+                DetailsViewModel game = await _context.Games
                     .Where(x => x.Id == request.Id)
-                    .Select(x => new DetailsViewModel(x, request.EditMode))
+                    .Select(x => new DetailsViewModel(x))
                     .FirstOrDefaultAsync();
+
+                CheckExistance(game);
+                return game;
+            }
+
+            private void CheckExistance(DetailsViewModel game)
+            {
+                if (game == null)
+                {
+                    throw new DetailException("No game with given Id exists");
+                }
             }
         }
     }

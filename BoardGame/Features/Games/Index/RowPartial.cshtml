@@ -5,17 +5,17 @@
         @Model.Name
     </td>
     <td>
-        <button onclick="location.href='@Url.Action("EditView","Game", new { Id = Model.Id, IsEditMode= false})'">
+        <button type="button" onclick="location.href='@Url.Action("EditView","Games", new { Id = Model.Id})'">
             Edit
         </button>
     </td>
     <td>
-        <button onclick="location.href='@Url.Action("Delete","Game", new { Id = Model.Id})'">
+        <button onclick="location.href='@Url.Action("Delete","Games", new { Id = Model.Id})'">
             Delete
         </button>
     </td>
     <td>
-        <button onclick="location.href='@Url.Action("Detail","Game", new { Id = Model.Id, IsEditMode= false})'">
+        <button onclick="location.href='@Url.Action("Details","Games", new { Id = Model.Id})'">
             Show Details
         </button>
     </td>

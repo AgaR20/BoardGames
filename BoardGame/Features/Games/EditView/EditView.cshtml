@@ -1,16 +1,24 @@
-﻿<div>
-    <label>Name: </label>
-    <label>@Model.Name</label>
-</div>
-<div>
-    <label>Maximal amount of players: </label>
-    <label>@Model.MaximalPlayersAmount</label>
-</div>
-<div>
-    <label>Minimal amount of players: </label>
-    <label>@Model.MinimalPlayersAmount</label>
-</div>
-<div>
-    <label>Minimal recomanded age of players: </label>
-    <label>@Model.MinimalPlayersAge</label>
-</div>
+﻿@model BoardGame.Features.Games.Details.DetailsViewModel
+<form asp-controller="Games" asp-action="Edit">
+    <div>
+        <label>Name: </label>
+        <input name="Name" value="@Model.Name"/>
+    </div>
+    <div>
+        <label>Maximal amount of players: </label>
+        <input name="MaximalPlayersAmount" value="@Model.MaximalPlayersAmount" />
+
+    </div>
+    <div>
+        <label>Minimal amount of players: </label>
+        <input name="MinimalPlayersAmount" value="@Model.MinimalPlayersAmount" />
+
+    </div>
+    <div>
+        <label>Minimal recomanded age of players: </label>
+        <input name="MinimalPlayersAge" value="@Model.MinimalPlayersAge" />
+
+    </div>
+    <input type="hidden" name="Id" value="@Model.Id"/>
+    <button type="submit">Edit</button>
+</form>

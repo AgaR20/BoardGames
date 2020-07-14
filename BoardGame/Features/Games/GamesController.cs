@@ -27,25 +27,38 @@ namespace BoardGame.Features.Games
             List<GamesIndexViewModel> result = await _mediator.Send(query, token);
             return View("Index/Index", result);
         }
-        public async Task<IActionResult> EditView([FromBody] EditView.EditGameViewQuery query, CancellationToken token)
+        public async Task<IActionResult> EditView(EditView.EditGameViewQuery query, CancellationToken token)
         {
-            //List<GamesIndexViewModel> result = await _mediator.Send(query, token);
-            return View("Index/Index");
+            DetailsViewModel result = await _mediator.Send(query, token);
+            return View("EditView/EditView", result);
         }
         public async Task<IActionResult> DeleteView(GetAllGamesQuery query, CancellationToken token)
         {
-            List<GamesIndexViewModel> result = await _mediator.Send(query, token);
-            return View("Index/Index", result);
+            return View("DeleteView/Delete");
         }
-        public async Task<IActionResult> Detail([FromBody] Details.GameDetailQuery query, CancellationToken token)
+        public async Task<IActionResult> Details(Details.GameDetailQuery query, CancellationToken token)
         {
             DetailsViewModel result = await _mediator.Send(query, token);
             return View("Details/Details", result);
         }
-        public async Task<IActionResult> AddView(GetAllGamesQuery query, CancellationToken token)
+        public async Task<IActionResult> AddView()
         {
-            List<GamesIndexViewModel> result = await _mediator.Send(query, token);
-            return View("Index/Index", result);
+            return View("AddView/AddView");
+        }
+        public async Task<IActionResult> Create(Create.CreateGameCommand command, CancellationToken token)
+        {
+            await _mediator.Send(command, token);
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Delete(Delete.DeleteGameViewCommand command, CancellationToken token)
+        {
+            await _mediator.Send(command, token);
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Edit(Edit.EditGameCommand command, CancellationToken token)
+        {
+            await _mediator.Send(command, token);
+            return RedirectToAction("Index");
         }
 
     }

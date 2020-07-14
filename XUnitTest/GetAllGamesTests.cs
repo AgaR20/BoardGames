@@ -1,5 +1,6 @@
 using BoardGame.Features.Games.Index;
 using BoardGame.Model;
+using Model.Entities;
 using System;
 using System.Threading;
 using Xunit;
