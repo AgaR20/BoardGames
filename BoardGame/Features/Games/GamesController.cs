@@ -8,25 +8,23 @@ using Microsoft.Extensions.Logging;
 using BoardGame.Model;
 using MediatR;
 using BoardGame.Features.Games.Index;
+using System.Threading;
 
-namespace BoardGame.Controllers
+namespace BoardGame.Features.Games
 {
     public class GamesController : Controller
     {
         private readonly IMediator _mediator;
 
-        public GamesController( IMediator mediator)
+        public GamesController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(GetAllGamesQuery query, CancellationToken token)
         {
-            //var list = _context.Games.ToList();
-            //_context.Games.Add(new Game());
-            //_context.SaveChanges();
-            _mediator.Send(new Query());
-            return View("Index/Index");
+            List<GamesIndexViewModel> result = await _mediator.Send(query, token);
+            return View("Index/Index", result);
         }
 
     }
