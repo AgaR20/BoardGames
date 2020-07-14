@@ -4,4 +4,19 @@
     <td>
         @Model.Name
     </td>
+    <td>
+        <button onclick="location.href='@Url.Action("EditView","Game", new { Id = Model.Id, IsEditMode= false})'">
+            Edit
+        </button>
+    </td>
+    <td>
+        <button onclick="location.href='@Url.Action("Delete","Game", new { Id = Model.Id})'">
+            Delete
+        </button>
+    </td>
+    <td>
+        <button onclick="location.href='@Url.Action("Detail","Game", new { Id = Model.Id, IsEditMode= false})'">
+            Show Details
+        </button>
+    </td>
 </tr>

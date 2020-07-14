@@ -42,6 +42,7 @@ namespace BoardGame
                 options.ViewLocationExpanders.Add(new FeatureLocation());
             });
             services.AddMediatR(typeof(Startup));
+            services.AddMvc(options => options.EnableEndpointRouting = false) ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,13 +65,18 @@ namespace BoardGame
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Games}/{action=Index}/{id?}");
+            //});
+            app.UseMvc(routes =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Games}/{action=Index}/{id?}");
+                routes.MapRoute(
+                name: "default",
+                template: "{controller=Games}/{action=Index}/{id?}");
             });
-
             UpdateDatabase(app);
 
         }

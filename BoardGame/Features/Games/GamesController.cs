@@ -9,6 +9,7 @@ using BoardGame.Model;
 using MediatR;
 using BoardGame.Features.Games.Index;
 using System.Threading;
+using BoardGame.Features.Games.Details;
 
 namespace BoardGame.Features.Games
 {
@@ -22,6 +23,26 @@ namespace BoardGame.Features.Games
         }
 
         public async Task<IActionResult> Index(GetAllGamesQuery query, CancellationToken token)
+        {
+            List<GamesIndexViewModel> result = await _mediator.Send(query, token);
+            return View("Index/Index", result);
+        }
+        public async Task<IActionResult> EditView([FromBody] EditView.EditGameViewQuery query, CancellationToken token)
+        {
+            //List<GamesIndexViewModel> result = await _mediator.Send(query, token);
+            return View("Index/Index");
+        }
+        public async Task<IActionResult> DeleteView(GetAllGamesQuery query, CancellationToken token)
+        {
+            List<GamesIndexViewModel> result = await _mediator.Send(query, token);
+            return View("Index/Index", result);
+        }
+        public async Task<IActionResult> Detail([FromBody] Details.GameDetailQuery query, CancellationToken token)
+        {
+            DetailsViewModel result = await _mediator.Send(query, token);
+            return View("Details/Details", result);
+        }
+        public async Task<IActionResult> AddView(GetAllGamesQuery query, CancellationToken token)
         {
             List<GamesIndexViewModel> result = await _mediator.Send(query, token);
             return View("Index/Index", result);

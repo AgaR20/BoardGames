@@ -1,0 +1,22 @@
+﻿@model BoardGame.Features.Games.Details.DetailsViewModel
+
+    <div>
+        <label>Name: </label>
+        @Html.TextBoxFor(model => model.Name, new { @readonly = true })
+        <label>@Model.Name</label>
+    </div>
+<div>
+    <label>Maximal amount of players: </label>
+    @Html.TextBoxFor(model => model.MaximalPlayersAmount, new { @readonly = false })
+    <label>@Model.MaximalPlayersAmount</label>
+</div>
+<div>
+    <label>Minimal amount of players: </label>
+    @Html.TextBoxFor(model => model.MinimalPlayersAmount, new { @readonly = true })
+    <label>@Model.MinimalPlayersAmount</label>
+</div>
+<div>
+    <label>Minimal recomanded age of players: </label>
+    @Html.TextBoxFor(model => model.MinimalPlayersAge, new { @readonly = true })
+    <label>@Model.MinimalPlayersAge</label>
+</div>
