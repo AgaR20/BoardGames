@@ -1,4 +1,5 @@
-﻿using BoardGame.Model;
+﻿using BoardGame.Infrastructure;
+using BoardGame.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
@@ -52,7 +53,7 @@ namespace BoardGame.Features.Games.Details
             {
                 if (game == null)
                 {
-                    throw new DetailException("No game with given Id exists");
+                    throw new DetailException(ExceptionTexts.NoGameWithGivenId);
                 }
             }
         }

@@ -1,4 +1,5 @@
 ﻿using BoardGame.Features.Games.Details;
+using BoardGame.Infrastructure;
 using BoardGame.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +37,7 @@ namespace BoardGame.Features.Games.EditView
             {
                 if (game == null)
                 {
-                    throw new Exception();
+                    throw new EditViewException(ExceptionTexts.NoGameWithGivenId);
                 }
             }
         }
