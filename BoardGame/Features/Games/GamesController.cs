@@ -9,6 +9,7 @@ using BoardGame.Model;
 using MediatR;
 using BoardGame.Features.Games.Index;
 using System.Threading;
+using BoardGame.Features.Games.Details;
 
 namespace BoardGame.Features.Games
 {
@@ -25,6 +26,39 @@ namespace BoardGame.Features.Games
         {
             List<GamesIndexViewModel> result = await _mediator.Send(query, token);
             return View("Index/Index", result);
+        }
+        public async Task<IActionResult> EditView(EditView.EditGameViewQuery query, CancellationToken token)
+        {
+            DetailsViewModel result = await _mediator.Send(query, token);
+            return View("EditView/EditView", result);
+        }
+        public async Task<IActionResult> DeleteView(GetAllGamesQuery query, CancellationToken token)
+        {
+            return View("DeleteView/Delete");
+        }
+        public async Task<IActionResult> Details(Details.GameDetailQuery query, CancellationToken token)
+        {
+            DetailsViewModel result = await _mediator.Send(query, token);
+            return View("Details/Details", result);
+        }
+        public async Task<IActionResult> AddView()
+        {
+            return View("AddView/AddView");
+        }
+        public async Task<IActionResult> Create(Create.CreateGameCommand command, CancellationToken token)
+        {
+            await _mediator.Send(command, token);
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Delete(Delete.DeleteGameViewCommand command, CancellationToken token)
+        {
+            await _mediator.Send(command, token);
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Edit(Edit.EditGameCommand command, CancellationToken token)
+        {
+            await _mediator.Send(command, token);
+            return RedirectToAction("Index");
         }
 
     }

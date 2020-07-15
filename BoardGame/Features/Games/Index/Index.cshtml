@@ -2,10 +2,13 @@
 
 <div class="text-center">
     <h1 class="display-4">Awsome Games</h1>
-    <button>Add new game</button>
+    <button onclick="location.href='@Url.Action("AddView","Games")'">Add new game</button>
     <table>
         <tr>
             <th>Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Details</th>
         </tr>
         @foreach (var game in Model)
         {
