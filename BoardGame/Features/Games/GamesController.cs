@@ -10,6 +10,7 @@ using MediatR;
 using BoardGame.Features.Games.Index;
 using System.Threading;
 using BoardGame.Features.Games.Details;
+using BoardGame.Features.Games.EditView;
 
 namespace BoardGame.Features.Games
 {
@@ -29,7 +30,7 @@ namespace BoardGame.Features.Games
         }
         public async Task<IActionResult> EditView(EditView.EditGameViewQuery query, CancellationToken token)
         {
-            DetailsViewModel result = await _mediator.Send(query, token);
+            EditGameViewModel result = await _mediator.Send(query, token);
             return View("EditView/EditView", result);
         }
         public async Task<IActionResult> DeleteView(GetAllGamesQuery query, CancellationToken token)

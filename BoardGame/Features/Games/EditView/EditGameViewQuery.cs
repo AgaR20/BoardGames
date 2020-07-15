@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace BoardGame.Features.Games.EditView
 {
-    public class EditGameViewQuery : IRequest<DetailsViewModel>
+    public class EditGameViewQuery : IRequest<EditGameViewModel>
     {
         public int Id { get; set; }
 
-        public class Handler : IRequestHandler<EditGameViewQuery, DetailsViewModel>
+        public class Handler : IRequestHandler<EditGameViewQuery, EditGameViewModel>
         {
             private readonly BoardContext _context;
             public Handler(BoardContext context)
@@ -22,16 +22,23 @@ namespace BoardGame.Features.Games.EditView
                 _context = context;
             }
 
-            public async Task<DetailsViewModel> Handle(EditGameViewQuery request, CancellationToken cancellationToken)
+            public async Task<EditGameViewModel> Handle(EditGameViewQuery request, CancellationToken cancellationToken)
             {
-                DetailsViewModel game = await _context.Games
+                EditGameViewModel game = await _context.Games
                   .Where(x => x.Id == request.Id)
-                  .Select(x => new DetailsViewModel(x))
+                  .Select(x => new EditGameViewModel(x))
                   .FirstOrDefaultAsync();
-                game.CheckExistance();
+                CheckExistance(game);
                 return game;
             }
 
+            private void CheckExistance(EditGameViewModel game)
+            {
+                if (game == null)
+                {
+                    throw new Exception();
+                }
+            }
         }
     }
 }

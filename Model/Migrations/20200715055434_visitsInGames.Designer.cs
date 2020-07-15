@@ -4,14 +4,16 @@ using BoardGame.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Model.Migrations
 {
     [DbContext(typeof(BoardContext))]
-    partial class BoardContextModelSnapshot : ModelSnapshot
+    [Migration("20200715055434_visitsInGames")]
+    partial class visitsInGames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,9 +52,6 @@ namespace Model.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("GameId")
-                        .HasColumnType("int");
-
                     b.Property<int>("VisitSource")
                         .HasColumnType("int");
 
@@ -61,16 +60,7 @@ namespace Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GameId");
-
                     b.ToTable("Visits");
-                });
-
-            modelBuilder.Entity("Model.Entities.Visit", b =>
-                {
-                    b.HasOne("Model.Entities.Game", null)
-                        .WithMany("Visits")
-                        .HasForeignKey("GameId");
                 });
 #pragma warning restore 612, 618
         }

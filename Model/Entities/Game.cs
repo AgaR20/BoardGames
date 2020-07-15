@@ -10,7 +10,7 @@ namespace Model.Entities
     {
         public Game()
         {
-
+            Visits = new List<Visit>();
         }
         public Game(IAddEditGame game)
         {
@@ -23,6 +23,7 @@ namespace Model.Entities
         public int MinimalPlayersAmount { get; set; }
         public int MaximalPlayersAmount { get; set; }
         public int MinimalPlayersAge { get; set; }
+        public List<Visit> Visits { get; set; }
 
         public void Update(IAddEditGame game)
         {

@@ -7,9 +7,17 @@ namespace Model.Entities
 {
     public class Visit : Entity
     {
+        public Visit()
+        {
+
+        }
+        public Visit(VisitSource source)
+        {
+            VisitTime = DateTime.Now;
+            VisitSource = source;
+        }
         public DateTime VisitTime { get; set; }
         public VisitSource VisitSource { get; set; }
-        public Game VisitedGame { get; set; }
     }
     public enum VisitSource
     {

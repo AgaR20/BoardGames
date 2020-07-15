@@ -2,6 +2,7 @@
 using BoardGame.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,13 +25,29 @@ namespace BoardGame.API.Games.GetGame
 
             public async Task<DetailsViewModel> Handle(GameDetailQuery request, CancellationToken cancellationToken)
             {
-                DetailsViewModel game = await _context.Games
+                Game game = await _context.Games
                     .Where(x => x.Id == request.Id)
-                    .Select(x => new DetailsViewModel(x))
                     .FirstOrDefaultAsync();
+                CheckExistance(game);
 
-                game.CheckExistance();
-                return game;
+                GenerateVisit(game);
+                await _context.SaveChangesAsync(cancellationToken);
+                var model = new DetailsViewModel(game);
+                return model;
+            }
+
+            private void GenerateVisit(Game game)
+            {
+                Visit visit = new Visit( VisitSource.Api);
+                _context.Visits.Add(visit);
+            }
+
+            private void CheckExistance(Game game)
+            {
+                if (game == null)
+                {
+                    throw new DetailException("No game with given Id exists");
+                }
             }
 
         }

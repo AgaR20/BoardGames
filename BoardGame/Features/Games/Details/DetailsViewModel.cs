@@ -1,4 +1,5 @@
-﻿using Model.Entities;
+﻿using BoardGame.Features.Games.EditView;
+using Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,29 +7,29 @@ using System.Threading.Tasks;
 
 namespace BoardGame.Features.Games.Details
 {
-    public class DetailsViewModel
+    public class DetailsViewModel: EditGameViewModel
     {
-        public DetailsViewModel(Game game)
+        public DetailsViewModel(Game game):base(game)
         {
             Id = game.Id;
             Name = game.Name;
             MaximalPlayersAmount = game.MaximalPlayersAmount;
             MinimalPlayersAge = game.MinimalPlayersAge;
             MinimalPlayersAmount = game.MinimalPlayersAmount;
+            VisitViewModels = GetVisitsViewModels(game.Visits);
         }
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int MinimalPlayersAmount { get; set; }
-        public int MaximalPlayersAmount { get; set; }
-        public int MinimalPlayersAge { get; set; }
 
-
-        public void CheckExistance()
+        private List<VisitViewModel> GetVisitsViewModels(List<Visit> visits)
         {
-            if (this == null)
-            {
-                throw new DetailException("No game with given Id exists");
-            }
+            return visits
+                .OrderByDescending(x => x.VisitTime)
+                .Take(10)
+                .Select(x => new VisitViewModel(x))
+                .ToList();
         }
+
+        public List<VisitViewModel> VisitViewModels { get; set; }
+
+        
     }
 }
