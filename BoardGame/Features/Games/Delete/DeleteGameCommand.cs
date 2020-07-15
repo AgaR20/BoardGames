@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace BoardGame.Features.Games.Delete
 {
-    public class DeleteGameViewCommand : IRequest<int>
+    public class DeleteGameCommand : IRequest<int>
     {
         public int Id { get; set; }
-        public class Handler : IRequestHandler<DeleteGameViewCommand, int>
+        public class Handler : IRequestHandler<DeleteGameCommand, int>
         {
             private readonly BoardContext _context;
             public Handler(BoardContext context)
@@ -22,7 +22,7 @@ namespace BoardGame.Features.Games.Delete
                 _context = context;
             }
 
-            public async Task<int> Handle(DeleteGameViewCommand request, CancellationToken cancellationToken)
+            public async Task<int> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
             {
                 Game game = await _context.Games.GetByIdWithVisits(request.Id, cancellationToken);
                 if (game == null)

@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoardGame", "BoardGame\Boar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{3EC26C4F-408C-42EC-9835-0822EED1AF74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTest", "XUnitTest\XUnitTest.csproj", "{F08D3E92-EFB6-4EB0-9B6D-05C948B91FB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTest", "XUnitTest\XUnitTest.csproj", "{F08D3E92-EFB6-4EB0-9B6D-05C948B91FB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Builders", "Builders\Builders.csproj", "{593532BF-3301-4357-80F0-D7B6A4379052}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F08D3E92-EFB6-4EB0-9B6D-05C948B91FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F08D3E92-EFB6-4EB0-9B6D-05C948B91FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F08D3E92-EFB6-4EB0-9B6D-05C948B91FB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{593532BF-3301-4357-80F0-D7B6A4379052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{593532BF-3301-4357-80F0-D7B6A4379052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{593532BF-3301-4357-80F0-D7B6A4379052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{593532BF-3301-4357-80F0-D7B6A4379052}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

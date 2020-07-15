@@ -52,7 +52,7 @@ namespace BoardGame.Features.Games
             await _mediator.Send(command, token);
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> Delete(Delete.DeleteGameViewCommand command, CancellationToken token)
+        public async Task<IActionResult> Delete(Delete.DeleteGameCommand command, CancellationToken token)
         {
             await _mediator.Send(command, token);
             return RedirectToAction("Index");
