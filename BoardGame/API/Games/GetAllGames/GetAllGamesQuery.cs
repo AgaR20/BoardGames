@@ -12,6 +12,10 @@ namespace BoardGame.API.Games.GetAllGames
 {
     public class GetAllGamesQuery : IRequest<List<GamesIndexViewModel>>
     {
+        public GetAllGamesQuery(int? limitNumber)
+        {
+            LimitNumber = limitNumber;
+        }
         public int? LimitNumber { get; set; }
         public class Handler : IRequestHandler<GetAllGamesQuery, List<GamesIndexViewModel>>
         {

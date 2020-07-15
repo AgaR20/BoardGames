@@ -1,18 +1,34 @@
 ﻿@model BoardGame.Features.Games.Details.DetailsViewModel
 
+<div>
     <div>
         <label>Name: </label>
         <label>@Model.Name</label>
     </div>
-<div>
-    <label>Maximal amount of players: </label>
-    <label>@Model.MaximalPlayersAmount</label>
+    <div>
+        <label>Maximal amount of players: </label>
+        <label>@Model.MaximalPlayersAmount</label>
+    </div>
+    <div>
+        <label>Minimal amount of players: </label>
+        <label>@Model.MinimalPlayersAmount</label>
+    </div>
+    <div>
+        <label>Minimal recomanded age of players: </label>
+        <label>@Model.MinimalPlayersAge</label>
+    </div>
 </div>
 <div>
-    <label>Minimal amount of players: </label>
-    <label>@Model.MinimalPlayersAmount</label>
-</div>
-<div>
-    <label>Minimal recomanded age of players: </label>
-    <label>@Model.MinimalPlayersAge</label>
+    <label>Visits:</label>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Source</th>
+        </tr>
+        @foreach (var visit in Model.VisitViewModels)
+        {
+            @Html.Partial("~/Features/Games/Details/VisitPartial.cshtml", visit)
+        }
+    </table>
 </div>

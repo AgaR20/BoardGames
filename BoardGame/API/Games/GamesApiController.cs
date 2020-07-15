@@ -20,10 +20,10 @@ namespace BoardGame.API.Games
             _mediator = mediator;
         }
 
-        [Route("getAllGames")]
-        public async Task<IActionResult> GetAllGames(GetAllGames.GetAllGamesQuery query, CancellationToken token)
+        [Route("getAllGames/{limitNumber?}")]
+        public async Task<IActionResult> GetAllGames(int? limitNumber = null)
         {
-            List<GamesIndexViewModel> result = await _mediator.Send(query, token);
+            List<GamesIndexViewModel> result = await _mediator.Send(new GetAllGames.GetAllGamesQuery(limitNumber));
             return Json(result);
         }
 

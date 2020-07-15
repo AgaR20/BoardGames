@@ -1,3 +1,8 @@
-﻿<div>
-    <label>Are you sure you want to delete?</label>
+﻿@model BoardGame.Features.Games.Index.GamesIndexViewModel
+<div>
+    <form asp-action="Delete" asp-controller="Games">
+        <label>Are you sure you want to delete @Model.Name?</label>
+        <input type="hidden" value="@Model.Id" name="Id"/>
+        <button type="submit">Yes</button>
+    </form>
 </div>

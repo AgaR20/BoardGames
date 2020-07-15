@@ -1,4 +1,5 @@
-﻿using BoardGame.Model;
+﻿using BoardGame.Infrastructure.Extensions;
+using BoardGame.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BoardGame.Features.Games.Edit
 {
-    public class EditGameCommand : IAddEditGame, IRequest<int>
+    public class EditGameCommand : IEditGame, IRequest<int>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -28,9 +29,7 @@ namespace BoardGame.Features.Games.Edit
 
             public async Task<int> Handle(EditGameCommand request, CancellationToken cancellationToken)
             {
-                Game game = await _context.Games
-                    .Where(x => x.Id == request.Id)
-                    .FirstOrDefaultAsync(cancellationToken);
+                Game game = await _context.Games.GetById(request.Id, cancellationToken);
                 if (game == null)
                 {
                     throw new EditException("No game with given Id exists.");
