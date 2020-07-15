@@ -20,8 +20,15 @@
 </div>
 <div>
     <label>Visits:</label>
-    @foreach(var visit in Model.VisitViewModels)
-    {
-        @Html.Partial("~/Features/Games/Details/VisitPartial.cshtml", visit)
-    }
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Source</th>
+        </tr>
+        @foreach (var visit in Model.VisitViewModels)
+        {
+            @Html.Partial("~/Features/Games/Details/VisitPartial.cshtml", visit)
+        }
+    </table>
 </div>

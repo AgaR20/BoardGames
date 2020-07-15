@@ -12,12 +12,13 @@ namespace Model.Entities
         {
             Visits = new List<Visit>();
         }
-        public Game(IAddEditGame game)
+        public Game(IAddGame game)
         {
             Name = game.Name;
             MinimalPlayersAge = game.MinimalPlayersAge;
             MaximalPlayersAmount = game.MaximalPlayersAmount;
             MinimalPlayersAmount = game.MinimalPlayersAmount;
+            Visits = new List<Visit>();
         }
         public string Name { get; set; }
         public int MinimalPlayersAmount { get; set; }
@@ -25,7 +26,7 @@ namespace Model.Entities
         public int MinimalPlayersAge { get; set; }
         public List<Visit> Visits { get; set; }
 
-        public void Update(IAddEditGame game)
+        public void Update(IEditGame game)
         {
             Name = game.Name;
             MinimalPlayersAge = game.MinimalPlayersAge;
@@ -34,12 +35,18 @@ namespace Model.Entities
         }
     }
 
-    public interface IAddEditGame
+    public interface IAddGame
     {
         string Name { get; set; }
         int MinimalPlayersAmount { get; set; }
         int MaximalPlayersAmount { get; set; }
         int MinimalPlayersAge { get; set; }
+    }
+
+    public interface IEditGame : IAddGame
+    {
+        int Id { get; set; }
+
     }
 }
 

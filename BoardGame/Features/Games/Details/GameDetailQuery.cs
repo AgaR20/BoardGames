@@ -25,8 +25,9 @@ namespace BoardGame.Features.Games.Details
             public async Task<DetailsViewModel> Handle(GameDetailQuery request, CancellationToken cancellationToken)
             {
                 Game game = await _context.Games
+                    .Include(x => x.Visits)
                     .Where(x => x.Id == request.Id)
-                    .FirstOrDefaultAsync();
+                    .FirstOrDefaultAsync(cancellationToken);
                 CheckExistance(game);
                 AddVisitToGame(game);
                 await _context.SaveChangesAsync(cancellationToken);
@@ -42,7 +43,7 @@ namespace BoardGame.Features.Games.Details
 
             private Visit GenerateVisit(Game game)
             {
-                Visit visit = new Visit( VisitSource.Web);
+                Visit visit = new Visit(VisitSource.Web);
                 _context.Visits.Add(visit);
                 return visit;
             }

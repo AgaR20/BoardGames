@@ -1,4 +1,5 @@
 ﻿using BoardGame.Features.Games.Details;
+using BoardGame.Infrastructure.Extensions;
 using BoardGame.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,7 @@ namespace BoardGame.API.Games.GetGame
     {
         public int Id { get; set; }
 
-        public class Handler : IRequestHandler<GameDetailQuery, DetailsViewModel>
+        public class Handler : IRequestHandler<GetGameQuery, DetailsViewModel>
         {
             private readonly BoardContext _context;
             public Handler(BoardContext context)
@@ -23,23 +24,28 @@ namespace BoardGame.API.Games.GetGame
                 _context = context;
             }
 
-            public async Task<DetailsViewModel> Handle(GameDetailQuery request, CancellationToken cancellationToken)
+            public async Task<DetailsViewModel> Handle(GetGameQuery request, CancellationToken cancellationToken)
             {
-                Game game = await _context.Games
-                    .Where(x => x.Id == request.Id)
-                    .FirstOrDefaultAsync();
+                Game game = await _context.Games.GetByIdWithVisits(request.Id, cancellationToken);
                 CheckExistance(game);
 
-                GenerateVisit(game);
+                AddVisitToGame(game);
                 await _context.SaveChangesAsync(cancellationToken);
                 var model = new DetailsViewModel(game);
                 return model;
             }
 
-            private void GenerateVisit(Game game)
+            private void AddVisitToGame(Game game)
             {
-                Visit visit = new Visit( VisitSource.Api);
+                var visit = GenerateVisit(game);
+                game.Visits.Add(visit);
+            }
+
+            private Visit GenerateVisit(Game game)
+            {
+                Visit visit = new Visit(VisitSource.Api);
                 _context.Visits.Add(visit);
+                return visit;
             }
 
             private void CheckExistance(Game game)
@@ -51,6 +57,6 @@ namespace BoardGame.API.Games.GetGame
             }
 
         }
-    
+
     }
 }

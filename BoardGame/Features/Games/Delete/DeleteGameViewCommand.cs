@@ -1,4 +1,4 @@
-﻿using BoardGame.Features.Games.DeleteView;
+﻿using BoardGame.Infrastructure.Extensions;
 using BoardGame.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -24,11 +24,12 @@ namespace BoardGame.Features.Games.Delete
 
             public async Task<int> Handle(DeleteGameViewCommand request, CancellationToken cancellationToken)
             {
-                Game game = await _context.Games.Where(x => x.Id == request.Id).FirstOrDefaultAsync(cancellationToken);
+                Game game = await _context.Games.GetByIdWithVisits(request.Id, cancellationToken);
                 if (game == null)
                 {
                     throw new DeteleException("No game with given Id.");
                 }
+                _context.Visits.RemoveRange(game.Visits);
                 _context.Games.Remove(game);
                 await _context.SaveChangesAsync(cancellationToken);
                 return game.Id;

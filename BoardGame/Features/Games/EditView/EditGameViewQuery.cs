@@ -27,7 +27,7 @@ namespace BoardGame.Features.Games.EditView
                 EditGameViewModel game = await _context.Games
                   .Where(x => x.Id == request.Id)
                   .Select(x => new EditGameViewModel(x))
-                  .FirstOrDefaultAsync();
+                  .FirstOrDefaultAsync(cancellationToken);
                 CheckExistance(game);
                 return game;
             }

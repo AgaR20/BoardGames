@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace BoardGame.Features.Games.Create
 {
-    public class CreateGameCommand : IAddEditGame, IRequest<int>
+    public class CreateGameCommand : IAddGame, IRequest<int>
     {
         public string Name { get; set; }
-        public int MinimalPlayersAmount { get ; set ; }
+        public int MinimalPlayersAmount { get; set; }
         public int MaximalPlayersAmount { get; set; }
-        public int MinimalPlayersAge { get; set ; }
+        public int MinimalPlayersAge { get; set; }
 
         public class Handler : IRequestHandler<CreateGameCommand, int>
         {
@@ -27,11 +27,11 @@ namespace BoardGame.Features.Games.Create
             public async Task<int> Handle(CreateGameCommand request, CancellationToken cancellationToken)
             {
                 var game = await _context.Games
-                    .AddAsync(new Game(request));
-                await _context.SaveChangesAsync();
+                    .AddAsync(new Game(request), cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
                 return game.Entity.Id;
             }
         }
-    
+
     }
 }

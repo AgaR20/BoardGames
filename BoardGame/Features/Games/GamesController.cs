@@ -33,9 +33,10 @@ namespace BoardGame.Features.Games
             EditGameViewModel result = await _mediator.Send(query, token);
             return View("EditView/EditView", result);
         }
-        public async Task<IActionResult> DeleteView(GetAllGamesQuery query, CancellationToken token)
+        public async Task<IActionResult> DeleteView(DeleteView.DeleteGameViewQuery query, CancellationToken token)
         {
-            return View("DeleteView/Delete");
+            GamesIndexViewModel result = await _mediator.Send(query, token);
+            return View("DeleteView/Delete", result);
         }
         public async Task<IActionResult> Details(Details.GameDetailQuery query, CancellationToken token)
         {
