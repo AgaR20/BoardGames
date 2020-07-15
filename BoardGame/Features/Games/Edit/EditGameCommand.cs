@@ -1,4 +1,5 @@
-﻿using BoardGame.Infrastructure.Extensions;
+﻿using BoardGame.Infrastructure;
+using BoardGame.Infrastructure.Extensions;
 using BoardGame.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +33,7 @@ namespace BoardGame.Features.Games.Edit
                 Game game = await _context.Games.GetById(request.Id, cancellationToken);
                 if (game == null)
                 {
-                    throw new EditException("No game with given Id exists.");
+                    throw new EditException(ExceptionTexts.NoGameWithGivenId);
                 }
 
                 game.Update(request);

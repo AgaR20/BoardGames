@@ -1,4 +1,5 @@
-﻿using BoardGame.Infrastructure.Extensions;
+﻿using BoardGame.Infrastructure;
+using BoardGame.Infrastructure.Extensions;
 using BoardGame.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,7 @@ namespace BoardGame.Features.Games.Delete
                 Game game = await _context.Games.GetByIdWithVisits(request.Id, cancellationToken);
                 if (game == null)
                 {
-                    throw new DeteleException("No game with given Id.");
+                    throw new DeteleException(ExceptionTexts.NoGameWithGivenId);
                 }
                 _context.Visits.RemoveRange(game.Visits);
                 _context.Games.Remove(game);

@@ -1,5 +1,6 @@
 ﻿using BoardGame.Features.Games.Delete;
 using BoardGame.Features.Games.Index;
+using BoardGame.Infrastructure;
 using BoardGame.Infrastructure.Extensions;
 using BoardGame.Model;
 using MediatR;
@@ -29,7 +30,7 @@ namespace BoardGame.Features.Games.DeleteView
                 Game game = await _context.Games.GetById(request.Id, cancellationToken);
                 if (game == null)
                 {
-                    throw new DeteleException("No game with given Id.");
+                    throw new DeteleException(ExceptionTexts.NoGameWithGivenId);
                 }
 
                 return new GamesIndexViewModel(game);

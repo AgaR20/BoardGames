@@ -1,4 +1,5 @@
 ﻿using BoardGame.Features.Games.Details;
+using BoardGame.Infrastructure;
 using BoardGame.Infrastructure.Extensions;
 using BoardGame.Model;
 using MediatR;
@@ -52,7 +53,7 @@ namespace BoardGame.API.Games.GetGame
             {
                 if (game == null)
                 {
-                    throw new DetailException("No game with given Id exists");
+                    throw new DetailException(ExceptionTexts.NoGameWithGivenId);
                 }
             }
 
