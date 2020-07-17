@@ -1,4 +1,5 @@
 ﻿using BoardGame.Infrastructure;
+using BoardGame.Infrastructure.Exceptions;
 using BoardGame.Infrastructure.Extensions;
 using BoardGame.Model;
 using MediatR;
@@ -31,10 +32,7 @@ namespace BoardGame.Features.Games.Edit
             public async Task<int> Handle(EditGameCommand request, CancellationToken cancellationToken)
             {
                 Game game = await _context.Games.GetById(request.Id, cancellationToken);
-                if (game == null)
-                {
-                    throw new EditException(ExceptionTexts.NoGameWithGivenId);
-                }
+                Throw.IsNull(game, ExceptionTexts.NoGameWithGivenId);
 
                 game.Update(request);
                 _context.Games.Update(game);

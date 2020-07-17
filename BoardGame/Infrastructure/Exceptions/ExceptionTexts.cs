@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BoardGame.Infrastructure
+namespace BoardGame.Infrastructure.Extensions
 {
     public static class ExceptionTexts
     {
