@@ -1,4 +1,5 @@
 ﻿using BoardGame.Infrastructure;
+using BoardGame.Infrastructure.Exceptions;
 using BoardGame.Infrastructure.Extensions;
 using BoardGame.Model;
 using MediatR;
@@ -26,10 +27,7 @@ namespace BoardGame.Features.Games.Delete
             public async Task<int> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
             {
                 Game game = await _context.Games.GetByIdWithVisits(request.Id, cancellationToken);
-                if (game == null)
-                {
-                    throw new DeteleException(ExceptionTexts.NoGameWithGivenId);
-                }
+                Throw.IsNull(game, ExceptionTexts.NoGameWithGivenId);
                 _context.Visits.RemoveRange(game.Visits);
                 _context.Games.Remove(game);
                 await _context.SaveChangesAsync(cancellationToken);

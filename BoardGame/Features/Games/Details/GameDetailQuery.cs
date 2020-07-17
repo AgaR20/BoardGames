@@ -1,4 +1,6 @@
 ﻿using BoardGame.Infrastructure;
+using BoardGame.Infrastructure.Exceptions;
+using BoardGame.Infrastructure.Extensions;
 using BoardGame.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -29,9 +31,11 @@ namespace BoardGame.Features.Games.Details
                     .Include(x => x.Visits)
                     .Where(x => x.Id == request.Id)
                     .FirstOrDefaultAsync(cancellationToken);
-                CheckExistance(game);
+                Throw.IsNull(game, ExceptionTexts.NoGameWithGivenId);
+
                 AddVisitToGame(game);
                 await _context.SaveChangesAsync(cancellationToken);
+
                 var model = new DetailsViewModel(game);
                 return model;
             }
@@ -47,14 +51,6 @@ namespace BoardGame.Features.Games.Details
                 Visit visit = new Visit(VisitSource.Web);
                 _context.Visits.Add(visit);
                 return visit;
-            }
-
-            private void CheckExistance(Game game)
-            {
-                if (game == null)
-                {
-                    throw new DetailException(ExceptionTexts.NoGameWithGivenId);
-                }
             }
         }
     }

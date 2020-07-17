@@ -1,5 +1,6 @@
 ﻿using BoardGame.Features.Games.Details;
 using BoardGame.Infrastructure;
+using BoardGame.Infrastructure.Exceptions;
 using BoardGame.Infrastructure.Extensions;
 using BoardGame.Model;
 using MediatR;
@@ -28,7 +29,7 @@ namespace BoardGame.API.Games.GetGame
             public async Task<DetailsViewModel> Handle(GetGameQuery request, CancellationToken cancellationToken)
             {
                 Game game = await _context.Games.GetByIdWithVisits(request.Id, cancellationToken);
-                CheckExistance(game);
+                Throw.IsNull(game, ExceptionTexts.NoGameWithGivenId);
 
                 AddVisitToGame(game);
                 await _context.SaveChangesAsync(cancellationToken);
@@ -47,14 +48,6 @@ namespace BoardGame.API.Games.GetGame
                 Visit visit = new Visit(VisitSource.Api);
                 _context.Visits.Add(visit);
                 return visit;
-            }
-
-            private void CheckExistance(Game game)
-            {
-                if (game == null)
-                {
-                    throw new DetailException(ExceptionTexts.NoGameWithGivenId);
-                }
             }
 
         }

@@ -1,5 +1,7 @@
 ﻿using BoardGame.Features.Games.Details;
 using BoardGame.Infrastructure;
+using BoardGame.Infrastructure.Exceptions;
+using BoardGame.Infrastructure.Extensions;
 using BoardGame.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -29,16 +31,8 @@ namespace BoardGame.Features.Games.EditView
                   .Where(x => x.Id == request.Id)
                   .Select(x => new EditGameViewModel(x))
                   .FirstOrDefaultAsync(cancellationToken);
-                CheckExistance(game);
+                Throw.IsNull(game, ExceptionTexts.NoGameWithGivenId);
                 return game;
-            }
-
-            private void CheckExistance(EditGameViewModel game)
-            {
-                if (game == null)
-                {
-                    throw new EditViewException(ExceptionTexts.NoGameWithGivenId);
-                }
             }
         }
     }
