@@ -42,11 +42,11 @@ namespace BoardGame.Features.Games.Details
 
             private void AddVisitToGame(Game game)
             {
-                var visit = GenerateVisit(game);
+                var visit = GenerateVisit();
                 game.Visits.Add(visit);
             }
 
-            private Visit GenerateVisit(Game game)
+            private Visit GenerateVisit()
             {
                 Visit visit = new Visit(VisitSource.Web);
                 _context.Visits.Add(visit);
