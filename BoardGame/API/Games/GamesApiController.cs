@@ -23,13 +23,14 @@ namespace BoardGame.API.Games
         [Route("getAllGames/{limitNumber?}")]
         public async Task<IActionResult> GetAllGames(int? limitNumber = null)
         {
-            List<GamesIndexViewModel> result = await _mediator.Send(new GetAllGames.GetAllGamesQuery(limitNumber));
+            List<GamesIndexViewModel> result = await _mediator.Send(new GetAllGamesQuery(limitNumber));
             return Json(result);
         }
 
         [Route("getGame")]
-        public async Task<IActionResult> GetGame(GetGame.GetGameQuery query, CancellationToken token)
+        public async Task<IActionResult> GetGame(GameDetailQuery query, CancellationToken token)
         {
+            query.IsFromWeb = false;
             DetailsViewModel result = await _mediator.Send(query, token);
             return Json(result);
         }

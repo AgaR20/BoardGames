@@ -16,6 +16,7 @@ namespace BoardGame.Features.Games.Details
     public class GameDetailQuery : IRequest<DetailsViewModel>
     {
         public int Id { get; set; }
+        public bool IsFromWeb { get; set; }
 
         public class Handler : IRequestHandler<GameDetailQuery, DetailsViewModel>
         {
@@ -33,22 +34,22 @@ namespace BoardGame.Features.Games.Details
                     .FirstOrDefaultAsync(cancellationToken);
                 Throw.IsNull(game, ExceptionTexts.NoGameWithGivenId);
 
-                AddVisitToGame(game);
+                AddVisitToGame(game, request.IsFromWeb);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 var model = new DetailsViewModel(game);
                 return model;
             }
 
-            private void AddVisitToGame(Game game)
+            private void AddVisitToGame(Game game, bool isFromWeb)
             {
-                var visit = GenerateVisit();
+                var visit = GenerateVisit(isFromWeb);
                 game.Visits.Add(visit);
             }
 
-            private Visit GenerateVisit()
+            private Visit GenerateVisit(bool isFromWeb)
             {
-                Visit visit = new Visit(VisitSource.Web);
+                Visit visit = new Visit(isFromWeb ? VisitSource.Web : VisitSource.Api);
                 _context.Visits.Add(visit);
                 return visit;
             }

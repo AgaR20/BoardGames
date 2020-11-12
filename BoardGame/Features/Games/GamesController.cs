@@ -40,6 +40,7 @@ namespace BoardGame.Features.Games
         }
         public async Task<IActionResult> Details(Details.GameDetailQuery query, CancellationToken token)
         {
+            query.IsFromWeb = true;
             DetailsViewModel result = await _mediator.Send(query, token);
             return View("Details/Details", result);
         }
