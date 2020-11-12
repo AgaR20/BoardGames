@@ -23,9 +23,9 @@ namespace BoardGame.Features.Games
             _mediator = mediator;
         }
 
-        public async Task<IActionResult> Index(GetAllGamesQuery query, CancellationToken token)
+        public async Task<IActionResult> Index(CancellationToken token)
         {
-            List<GamesIndexViewModel> result = await _mediator.Send(query, token);
+            List<GamesIndexViewModel> result = await _mediator.Send(new GetAllGamesQuery(), token);
             return View("Index/Index", result);
         }
         public async Task<IActionResult> EditView(EditView.EditGameViewQuery query, CancellationToken token)
